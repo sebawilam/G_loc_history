@@ -130,6 +130,7 @@ while starter < 3:
     print(max(df_gps1['date']))
     # days_all = len(df_2022['date'])
     df_gps1['on_place'] = df_gps1['distance_km'].apply(lambda x: 'True' if x < radius else 'False')
+    df_gps2 = df_gps1.copy()
     df_gps1 = df_gps1.groupby('date')['on_place'].max()
     on_place_cnt = df_gps1.value_counts()
     print('All days: ' + str(on_place_cnt.sum()))
@@ -142,3 +143,13 @@ while starter < 3:
         starter = 3
 print('End')
             
+# <trkseg><trkpt lat="51.72068745268293" lon="21.246277103472032"><ele>130.0</ele><time>2022-06-05T15:21:19.000Z</time></trkpt>
+
+# calculation for track to fix Strava trip
+# df_gps2a = df_gps2[df_gps2['timestamp']>'2022-05-30T15:06:18']
+# df_gps2a = df_gps2a[df_gps2a['timestamp']<'2022-06-05T15:21:18']
+# df_gps2a['gpx'] = '<trkseg><trkpt lat="' + str(df_gps2a['lat']) + '" lon="' + str(df_gps2a['lon']) + '"><ele>130.0</ele><time>' + df_gps2a['timestamp'] + '.000Z</time></trkpt>' 
+# # df_gps['point'] = df_gps.apply(lambda x: Point(latitude=x['lat'], longitude=x['lon']), axis=1)
+# df_gps2a['gpx'] = df_gps2a.apply(lambda x: '<trkseg><trkpt lat="' + str(x['lat']) + '" lon="' + str(x['lon']) + '"><ele>130.0</ele><time>' + x['timestamp'] + '.000Z</time></trkpt>', axis=1)
+# df_gps2a.dtypes
+# print(df_gps2a['gpx'])
